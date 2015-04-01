@@ -11,7 +11,7 @@ $get = $api::get('/myMethodGET');
 
 $post = $api::post('/myMethodPOST', array('field' => 'value'));
 
-$post = $api::put('/myMethodPUT', array('field' => 'value'));
+$put = $api::put('/myMethodPUT', array('field' => 'value'));
 
-$post = $api::delete('/myMethodDELETE');
+$delete = $api::delete('/myMethodDELETE');
 ```
