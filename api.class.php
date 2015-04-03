@@ -1,6 +1,6 @@
 <?php
 class Api {
-	static $endPoint;
+	private static $endPoint;
 
 	public function __construct($url) {
 		self::$endPoint = $url;
@@ -37,7 +37,7 @@ class Api {
 
 		if (is_array($post)) {
 			curl_setopt($ch, CURLOPT_POST, true);
-			curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
 		}
 
 		try {
