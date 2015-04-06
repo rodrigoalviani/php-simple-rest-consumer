@@ -22,7 +22,7 @@ class Api {
 		return self::fetch($method, 'DELETE');
 	}
 
-	private static function fetch($method, $verb = 'GET', $post = false) {
+	private static function fetch($method, $verb = 'GET', $post = false, $timeout = 5) {
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, self::$endPoint . $method);
 		if ($verb !== 'GET' && $verb !== 'POST') {
@@ -31,7 +31,7 @@ class Api {
 		curl_setopt($ch, CURLOPT_HEADER, false);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_BINARYTRANSFER, true);
-		curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+		curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 
