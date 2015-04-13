@@ -38,6 +38,9 @@ class Api {
 		if (is_array($post)) {
 			curl_setopt($ch, CURLOPT_POST, true);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($post));
+		} elseif ($post) {
+			curl_setopt($ch, CURLOPT_POST, true);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
 		}
 
 		try {
