@@ -15,3 +15,5 @@ $put = $api::put('/myMethodPUT', array('field' => 'value'));
 
 $delete = $api::delete('/myMethodDELETE');
 ```
+
+Send custom header is available

@@ -6,29 +6,35 @@ class Api {
 		self::$endPoint = $url;
 	}
 
-	public static function get($method) {
-		return self::fetch($method);
+	public static function get($method, $header) {
+		return self::fetch($method, 'GET', $header);
 	}
 
-	public static function post($method, $post) {
-		return self::fetch($method, 'POST', $post);
+	public static function post($method, $post, $header) {
+		return self::fetch($method, 'POST', $header, $post);
 	}
 
-	public static function put($method, $put) {
-		return self::fetch($method, 'PUT', $put);
+	public static function put($method, $put, $header) {
+		return self::fetch($method, 'PUT', $header, $put);
 	}
 
-	public static function delete($method) {
-		return self::fetch($method, 'DELETE');
+	public static function delete($method, $header) {
+		return self::fetch($method, 'DELETE', $header);
 	}
 
-	private static function fetch($method, $verb = 'GET', $post = false, $timeout = 5) {
+	private static function fetch($method, $verb = 'GET', $header = '', $post = false, $timeout = 5) {
 		$ch = curl_init();
 		curl_setopt($ch, CURLOPT_URL, self::$endPoint . $method);
 		if ($verb !== 'GET' && $verb !== 'POST') {
 			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $verb);
 		}
-		curl_setopt($ch, CURLOPT_HEADER, false);
+
+		if ($header) {
+			curl_setopt($ch, CURLOPT_HEADER, false);
+		} else {
+			curl_setopt($ch, CURLOPT_HEADER, true);
+		}
+
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_BINARYTRANSFER, true);
 		curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
@@ -41,6 +47,10 @@ class Api {
 		} elseif ($post) {
 			curl_setopt($ch, CURLOPT_POST, true);
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+		}
+
+		if (is_array($header)) {
+			curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
 		}
 
 		try {
