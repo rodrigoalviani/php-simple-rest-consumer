@@ -24,7 +24,13 @@ class Api {
 
 	private static function fetch($method, $verb = 'GET', $header = '', $post = false, $timeout = 5) {
 		$ch = curl_init();
+		
+		if (substr($endPoint, -1) != '/' && substr($method, 0, 1) != '/') {
+			$method = '/' . $method;
+		}
+		
 		curl_setopt($ch, CURLOPT_URL, self::$endPoint . $method);
+
 		if ($verb !== 'GET' && $verb !== 'POST') {
 			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $verb);
 		}
