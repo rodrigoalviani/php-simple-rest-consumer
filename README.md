@@ -23,4 +23,13 @@ $delete = $api::delete('/myMethodDELETE');
 $delete = $api::delete('/myMethodDELETE', 'Authorization: Bearer XXXXXXXXXXXXXXX');
 ```
 
+##Return
+```php
+Array(
+  'header' => $header,
+  'response' => $response,
+  'realUrl' => $realUrl
+);
+```
+
 Send custom header is available
